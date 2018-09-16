@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <title>הגרלה</title>
+  <style>
+    h1, h2, label, button, div, input#button_submit {
+      text-align: center;
+      display: block;
+      margin: 10px auto;
+    }
+
+    input#num {
+      width: 150px;
+    }
+
+    input {
+      font-family: arial, sans-serif;
+    }
+
+    #more {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>עריכת הגרלה</h1>
+
+    <div id="content">
+      <form onsubmit="return false">
+        <label for="to_num">מספר משתתפים בהגרלה:</label>
+        <input type="number" id="num" min="2" autofocus required />
+        <input type="submit" id="button_submit" onclick="lottery(num.value)" value="ביצוע הגרלה" />
+      </form>
+    </div>
+
+    <p id="result">
+    </p>
+
+    <div id="more">
+
+    </div>
+  </div>
+  <script type="text/javascript">
+    var contentElement = document.getElementById("content");
+    var moreElement = document.getElementById("more");
+
+    function lottery(num) {
+      if (num > 1) {
+        var a = 1;
+
+        var interval = setInterval(function () {
+          var x = Math.ceil(Math.random() * num);
+          contentElement.innerHTML = 'ההגרלה מתבצעת ' + '<h2>' + x + '</h2>';
+          a = a + 1;
+
+          if (a > 29) {
+            clearInterval(interval);
+            var x = Math.ceil(Math.random() * num);
+            contentElement.innerHTML = 'תוצאות ההגרלה: ' + '<h2>' + x + '</h2>';
+            moreElement.innerHTML = '<button><a href="">בצע הגרלה נוספת</a></button>';
+            moreElement.focus();
+          }
+
+        }, 40);
+      }
+    }
+  </script>
+</body>
